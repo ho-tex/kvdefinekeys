@@ -1,13 +1,13 @@
 % \iffalse meta-comment
 %
 % File: kvdefinekeys.dtx
-% Version: 2016/05/16 v1.4
+% Version: 2019/12/15 v1.5
 % Info: Define keys
 %
 % Copyright (C)
 %    2010, 2011 Heiko Oberdiek
 %    2016-2019 Oberdiek Package Support Group
-%    https://github.com/ho-tex/oberdiek/issues
+%    https://github.com/ho-tex/kvdefinekeys/issues
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -23,7 +23,7 @@
 %
 % The Current Maintainers of this work are
 % Heiko Oberdiek and the Oberdiek Package Support Group
-% https://github.com/ho-tex/oberdiek/issues
+% https://github.com/ho-tex/kvdefinekeys/issues
 %
 % The Base Interpreter refers to any `TeX-Format',
 % because some files are installed in TDS:tex/generic//.
@@ -34,8 +34,8 @@
 %    kvdefinekeys-test1.tex.
 %
 % Distribution:
-%    CTAN:macros/latex/contrib/oberdiek/kvdefinekeys.dtx
-%    CTAN:macros/latex/contrib/oberdiek/kvdefinekeys.pdf
+%    CTAN:macros/latex/contrib/kvdefinekeys/kvdefinekeys.dtx
+%    CTAN:macros/latex/contrib/kvdefinekeys/kvdefinekeys.pdf
 %
 % Unpacking:
 %    (a) If kvdefinekeys.ins is present:
@@ -64,9 +64,9 @@
 %       pdflatex kvdefinekeys.dtx
 %
 % Installation:
-%    TDS:tex/generic/oberdiek/kvdefinekeys.sty
-%    TDS:doc/latex/oberdiek/kvdefinekeys.pdf
-%    TDS:source/latex/oberdiek/kvdefinekeys.dtx
+%    TDS:tex/generic/kvdefinekeys/kvdefinekeys.sty
+%    TDS:doc/latex/kvdefinekeys/kvdefinekeys.pdf
+%    TDS:source/latex/kvdefinekeys/kvdefinekeys.dtx
 %
 %<*ignore>
 \begingroup
@@ -83,7 +83,7 @@
 \input docstrip.tex
 \Msg{************************************************************************}
 \Msg{* Installation}
-\Msg{* Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)}
+\Msg{* Package: kvdefinekeys 2019/12/15 v1.5 Define keys (HO)}
 \Msg{************************************************************************}
 
 \keepsilent
@@ -95,7 +95,7 @@
 This is a generated file.
 
 Project: kvdefinekeys
-Version: 2016/05/16 v1.4
+Version: 2019/12/15 v1.5
 
 Copyright (C)
    2010, 2011 Heiko Oberdiek
@@ -115,7 +115,7 @@ This work has the LPPL maintenance status "maintained".
 
 The Current Maintainers of this work are
 Heiko Oberdiek and the Oberdiek Package Support Group
-https://github.com/ho-tex/oberdiek/issues
+https://github.com/ho-tex/kvdefinekeys/issues
 
 
 The Base Interpreter refers to any `TeX-Format',
@@ -132,10 +132,8 @@ and the derived files
 \generate{%
   \file{kvdefinekeys.ins}{\from{kvdefinekeys.dtx}{install}}%
   \file{kvdefinekeys.drv}{\from{kvdefinekeys.dtx}{driver}}%
-  \usedir{tex/generic/oberdiek}%
+  \usedir{tex/generic/kvdefinekeys}%
   \file{kvdefinekeys.sty}{\from{kvdefinekeys.dtx}{package}}%
-%  \usedir{doc/latex/oberdiek/test}%
-%  \file{kvdefinekeys-test1.tex}{\from{kvdefinekeys.dtx}{test1}}%
 }
 
 \catcode32=13\relax% active space
@@ -162,7 +160,7 @@ and the derived files
 %<*driver>
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesFile{kvdefinekeys.drv}%
-  [2016/05/16 v1.4 Define keys (HO)]%
+  [2019/12/15 v1.5 Define keys (HO)]%
 \documentclass{ltxdoc}
 \usepackage{holtxdoc}[2011/11/22]
 \begin{document}
@@ -176,9 +174,9 @@ and the derived files
 % \GetFileInfo{kvdefinekeys.drv}
 %
 % \title{The \xpackage{kvdefinekeys} package}
-% \date{2016/05/16 v1.4}
+% \date{2019/12/15 v1.5}
 % \author{Heiko Oberdiek\thanks
-% {Please report any issues at \url{https://github.com/ho-tex/oberdiek/issues}}}
+% {Please report any issues at \url{https://github.com/ho-tex/kvdefinekeys/issues}}}
 %
 % \maketitle
 %
@@ -295,7 +293,7 @@ and the derived files
   \fi
 \expandafter\x\csname ver@kvdefinekeys.sty\endcsname
 \ProvidesPackage{kvdefinekeys}%
-  [2016/05/16 v1.4 Define keys (HO)]%
+  [2019/12/15 v1.5 Define keys (HO)]%
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -351,8 +349,9 @@ and the derived files
     \fi
   }%
   \TMP@RequirePackage{ltxcmds}[2010/03/01]%
+  \let\@ifundefined\ltx@IfUndefined
+  \let\@ifnextchar\ltx@ifnextchar
 \else
-  \RequirePackage{ltxcmds}[2010/03/01]%
 \fi
 %    \end{macrocode}
 %
@@ -361,8 +360,8 @@ and the derived files
 %
 %    \begin{macro}{\kv@define@key}
 %    \begin{macrocode}
-\ltx@IfUndefined{protected}{%
-  \ltx@IfUndefined{DeclareRobustCommand}{%
+\@ifundefined{protected}{%
+  \@ifundefined{DeclareRobustCommand}{%
     \def\kv@define@key#1#2%
   }{%
     \DeclareRobustCommand*{\kv@define@key}[2]%
@@ -384,7 +383,7 @@ and the derived files
 %    \begin{macro}{\KVD@DefineKey}
 %    \begin{macrocode}
 \def\KVD@DefineKey#1#2{%
-  \ltx@ifnextchar[{%
+  \@ifnextchar[{%
     \KVD@DefineKeyWithDefault{#1}{#2}%
   }{%
     \long\expandafter\def\csname KV@#1@#2\endcsname##1%
@@ -415,17 +414,17 @@ and the derived files
 % \paragraph{Package.} This package is available on
 % CTAN\footnote{\CTANpkg{kvdefinekeys}}:
 % \begin{description}
-% \item[\CTAN{macros/latex/contrib/oberdiek/kvdefinekeys.dtx}] The source file.
-% \item[\CTAN{macros/latex/contrib/oberdiek/kvdefinekeys.pdf}] Documentation.
+% \item[\CTAN{macros/latex/contrib/kvdefinekeys/kvdefinekeys.dtx}] The source file.
+% \item[\CTAN{macros/latex/contrib/kvdefinekeys/kvdefinekeys.pdf}] Documentation.
 % \end{description}
 %
 %
-% \paragraph{Bundle.} All the packages of the bundle `oberdiek'
+% \paragraph{Bundle.} All the packages of the bundle `kvdefinekeys'
 % are also available in a TDS compliant ZIP archive. There
 % the packages are already unpacked and the documentation files
 % are generated. The files and directories obey the TDS standard.
 % \begin{description}
-% \item[\CTANinstall{install/macros/latex/contrib/oberdiek.tds.zip}]
+% \item[\CTANinstall{install/macros/latex/contrib/kvdefinekeys.tds.zip}]
 % \end{description}
 % \emph{TDS} refers to the standard ``A Directory Structure
 % for \TeX\ Files'' (\CTANpkg{tds}). Directories
@@ -433,11 +432,11 @@ and the derived files
 %
 % \subsection{Bundle installation}
 %
-% \paragraph{Unpacking.} Unpack the \xfile{oberdiek.tds.zip} in the
+% \paragraph{Unpacking.} Unpack the \xfile{kvdefinekeys.tds.zip} in the
 % TDS tree (also known as \xfile{texmf} tree) of your choice.
 % Example (linux):
 % \begin{quote}
-%   |unzip oberdiek.tds.zip -d ~/texmf|
+%   |unzip kvdefinekeys.tds.zip -d ~/texmf|
 % \end{quote}
 %
 % \subsection{Package installation}
@@ -455,9 +454,9 @@ and the derived files
 % \begin{quote}
 % \def\t{^^A
 % \begin{tabular}{@{}>{\ttfamily}l@{ $\rightarrow$ }>{\ttfamily}l@{}}
-%   kvdefinekeys.sty & tex/generic/oberdiek/kvdefinekeys.sty\\
-%   kvdefinekeys.pdf & doc/latex/oberdiek/kvdefinekeys.pdf\\
-%   kvdefinekeys.dtx & source/latex/oberdiek/kvdefinekeys.dtx\\
+%   kvdefinekeys.sty & tex/generic/kvdefinekeys/kvdefinekeys.sty\\
+%   kvdefinekeys.pdf & doc/latex/kvdefinekeys/kvdefinekeys.pdf\\
+%   kvdefinekeys.dtx & source/latex/kvdefinekeys/kvdefinekeys.dtx\\
 % \end{tabular}^^A
 % }^^A
 % \sbox0{\t}^^A
@@ -596,6 +595,10 @@ and the derived files
 %     \cs{kv@define@key} is made robust if available.
 %   \end{Version}
 %   \begin{Version}{2016/05/16 v1.4}
+%   \item
+%     Documentation updates.
+%   \end{Version}
+%   \begin{Version}{2019/12/15 v1.5}
 %   \item
 %     Documentation updates.
 %   \end{Version}
