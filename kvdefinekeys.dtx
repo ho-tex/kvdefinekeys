@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 %
 % File: kvdefinekeys.dtx
-% Version: 2019/12/15 v1.5
+% Version: 2019-12-19 v1.6
 % Info: Define keys
 %
 % Copyright (C)
@@ -83,7 +83,7 @@
 \input docstrip.tex
 \Msg{************************************************************************}
 \Msg{* Installation}
-\Msg{* Package: kvdefinekeys 2019/12/15 v1.5 Define keys (HO)}
+\Msg{* Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)}
 \Msg{************************************************************************}
 
 \keepsilent
@@ -95,7 +95,7 @@
 This is a generated file.
 
 Project: kvdefinekeys
-Version: 2019/12/15 v1.5
+Version: 2019-12-19 v1.6
 
 Copyright (C)
    2010, 2011 Heiko Oberdiek
@@ -160,7 +160,7 @@ and the derived files
 %<*driver>
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesFile{kvdefinekeys.drv}%
-  [2019/12/15 v1.5 Define keys (HO)]%
+  [2019-12-19 v1.6 Define keys (HO)]%
 \documentclass{ltxdoc}
 \usepackage{holtxdoc}[2011/11/22]
 \begin{document}
@@ -174,7 +174,7 @@ and the derived files
 % \GetFileInfo{kvdefinekeys.drv}
 %
 % \title{The \xpackage{kvdefinekeys} package}
-% \date{2019/12/15 v1.5}
+% \date{2019-12-19 v1.6}
 % \author{Heiko Oberdiek\thanks
 % {Please report any issues at \url{https://github.com/ho-tex/kvdefinekeys/issues}}}
 %
@@ -293,7 +293,7 @@ and the derived files
   \fi
 \expandafter\x\csname ver@kvdefinekeys.sty\endcsname
 \ProvidesPackage{kvdefinekeys}%
-  [2019/12/15 v1.5 Define keys (HO)]%
+  [2019-12-19 v1.6 Define keys (HO)]%
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -385,11 +385,10 @@ and the derived files
 %    \begin{macro}{\KVD@DefineKey}
 %    \begin{macrocode}
 \def\KVD@DefineKey#1#2{%
-  \@ifnextchar[\@firstoftwo\@secondoftwo{%
-    \KVD@DefineKeyWithDefault{#1}{#2}%
-  }{%
-    \long\expandafter\def\csname KV@#1@#2\endcsname##1%
-  }%
+  \begingroup
+   \toks\z@{\endgroup\KVD@DefineKeyWithDefault{#1}{#2}}%
+   \toks\tw@{\endgroup\long\expandafter\def\csname KV@#1@#2\endcsname##1}%
+  \@ifnextchar[{\the\toks\z@}{\the\toks\tw@}%
 }
 %    \end{macrocode}
 %    \end{macro}
@@ -603,6 +602,9 @@ and the derived files
 %   \begin{Version}{2019/12/15 v1.5}
 %   \item
 %     Documentation updates.
+%   \end{Version}
+%   \begin{Version}{2019-12-19 v1.6}
+%   \item Fix definition of \cs{KVD@DefineKey} for gh issue embedfile/2
 %   \end{Version}
 % \end{History}
 %
